@@ -1,5 +1,5 @@
-async function findAccountCountForRoles(collection) {
-	const data = await collection
+async function findAccountCountForRoles(accounts) {
+	const data = await accounts
 		.aggregate([
 			{
 				$project: {
