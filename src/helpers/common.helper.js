@@ -1,7 +1,7 @@
 // throw custom error with message and statuscode
 function throwCustomError(message, statusCode = 400) {
 	const err = new Error(message);
-	err.statusCod = statusCode;
+	err.statusCode = statusCode;
 	throw err;
 }
 
