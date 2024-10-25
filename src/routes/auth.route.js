@@ -1,13 +1,23 @@
 const express = require('express');
-
 const router = express.Router();
 
-router.post('/login', (req, res) => {
-	res.send('user logged in');
-});
+const authControllers = require('../controllers/auth.controller');
+const commonHelpers = require('../helpers/common.helper');
+const authMiddlewares = require('../middlewares/auth.middleware');
 
-router.post('/logout', (req, res) => {
-	res.send('user logged out');
-});
+router.post('/login', authControllers.login, commonHelpers.responseHandler);
+
+router.get(
+	'/logout',
+	authMiddlewares.authCheck,
+	authControllers.logout,
+	commonHelpers.responseHandler,
+);
+
+router.post(
+	'/register',
+	authControllers.register,
+	commonHelpers.responseHandler,
+);
 
 module.exports = router;
