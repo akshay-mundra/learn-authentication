@@ -9,7 +9,11 @@ function authCheck(req, res, next) {
 		}
 
 		const data = jwtHelpers.verifyToken(token);
+		if (!data?._id) {
+			commonHelpers.throwCustomError('Invalid token', 401);
+		}
 		req.id = data._id;
+		console.log(req.id);
 		next();
 	} catch (err) {
 		console.log('auth middleware', err);
