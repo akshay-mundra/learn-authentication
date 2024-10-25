@@ -2,6 +2,7 @@ const User = require('../models/user');
 const commonHelpers = require('../helpers/common.helper');
 const bcrypt = require('bcrypt');
 
+// create user and save to db
 async function create(payload) {
 	const { username, password } = payload;
 
@@ -19,8 +20,18 @@ async function create(payload) {
 	await newUser.save();
 
 	return {
-		username: newUser.username,
+		newUser,
 	};
 }
 
-module.exports = { create };
+// get the current user by its id
+async function get(id) {
+	const userDetails = await User.findById(id);
+	if (!userDetails) {
+		commonHelpers.throwCustomError('User not found', 404);
+	}
+
+	return userDetails;
+}
+
+module.exports = { create, get };

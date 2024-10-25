@@ -5,8 +5,6 @@ const userControllers = require('../controllers/users.controller');
 
 router.post('/', userControllers.create, commonHelpers.responseHandler);
 
-router.get('/:id', (req, res) => {
-	res.send('current user data');
-});
+router.get('/:id', userControllers.get, commonHelpers.responseHandler);
 
 module.exports = router;
