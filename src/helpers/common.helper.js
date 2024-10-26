@@ -6,7 +6,7 @@ function throwCustomError(message, statusCode = 400) {
 }
 
 // send response after error
-function errorHandler(req, res, message, statusCode) {
+function errorHandler(req, res, message, statusCode = 400) {
 	message = message ? message : 'Something went wrong';
 
 	res.status(statusCode).json({
