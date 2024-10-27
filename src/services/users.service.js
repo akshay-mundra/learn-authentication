@@ -4,16 +4,19 @@ const bcrypt = require('bcrypt');
 
 // create user and save to db
 async function create(payload) {
-	const { username, password } = payload;
+	const { username, email, password } = payload;
 
-	const usernameExists = await User.findOne({ username });
-	if (usernameExists) {
-		commonHelpers.throwCustomError('Username already exists', 409);
+	console.log(payload);
+
+	const userExists = await User.findOne({ email });
+	if (userExists) {
+		commonHelpers.throwCustomError('Email or Username already exists', 409);
 	}
 
 	const hashedPassword = await bcrypt.hash(password, 10);
 	const userDetails = {
 		username,
+		email,
 		password: hashedPassword,
 	};
 	const newUser = new User(userDetails);
