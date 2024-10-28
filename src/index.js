@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv').config();
 const { connectDb } = require('./config/database.js');
+const { redisClient } = require('./config/redis.js');
 const routes = require('./routes');
 
 const app = express();

@@ -22,4 +22,10 @@ router.post(
 	commonHelpers.responseHandler,
 );
 
+router.get(
+	'/generate-otp',
+	authControllers.generateOtp,
+	commonHelpers.responseHandler,
+);
+
 module.exports = router;

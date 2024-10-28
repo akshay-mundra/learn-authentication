@@ -39,4 +39,21 @@ async function logout() {
 	return 1;
 }
 
-module.exports = { login, register, logout };
+async function generateOtp(payload) {
+	const { username } = payload;
+	const userDetails = await User.findOne({ username });
+
+	if (!userDetails) {
+		commonHelpers.throwCustomError('Username do not exist', 401);
+	}
+
+	const { email: userEmail } = userDetails;
+	if (!userEmail) {
+		commonHelpers.throwCustomError(
+			'No email for registered user, please login via password',
+			400,
+		);
+	}
+}
+
+module.exports = { login, register, logout, generateOtp };

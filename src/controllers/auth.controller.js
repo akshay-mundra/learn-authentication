@@ -42,4 +42,18 @@ async function logout(req, res, next) {
 	}
 }
 
+// generate otp
+async function generateOtp(req, res, next) {
+	try {
+		const { body: payload } = req;
+		const result = authService.generateOtp(payload);
+		res.data = result;
+		res.statusCode = 200;
+		next();
+	} catch (err) {
+		console.log('otp generate \n', err);
+		commonHelpers.errorHandler(req, res, err.message, err.statusCode);
+	}
+}
+
 module.exports = { login, logout, register };
